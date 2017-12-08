@@ -1,17 +1,18 @@
-let testdiv = document.getElementById("testdiv");
+let keys = Object.keys(db);
+let tableDiv = document.getElementById("tableDiv");
 
-var xmlhttp = new XMLHttpRequest();
-var url = "movies.json";
+keys.sort();
 
-let data;
-
-xmlhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        data = JSON.parse(this.responseText);
+function getBgColor(val) {
+    if(val) {
+        return "green";
+    } else {
+        return "red";
     }
-};
+}
 
-xmlhttp.open("GET", url, true);
-xmlhttp.send();
+tableDiv.innerHTML += "<tr> <th>Name</th> <th>Format</th> <th>Halloween Special</th> <th>Christmas Special</th> <th>Played</th> </tr>";
 
-console.log(data);
+for(i=0; i!=keys.length; i++) {
+    tableDiv.innerHTML += "<tr>" + "<td>" + db[keys[i]].tapeName + "</td>" + "<td>" + db[keys[i]].format + "</td>" + "<td bgcolor=\"" + getBgColor(db[keys[i]].isHorror) + "\">" + db[keys[i]].isHorror + "</td>" + "<td bgcolor=\"" + getBgColor(db[keys[i]].isXmas) + "\">" + db[keys[i]].isXmas + "</td>" + "<td bgcolor=\"" + getBgColor(db[keys[i]].played) + "\">" + db[keys[i]].played + "</td>" + "</tr>";
+}
